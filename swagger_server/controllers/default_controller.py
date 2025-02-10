@@ -2,22 +2,23 @@ import connexion
 import six
 
 from swagger_server.models.student import Student  # noqa: E501
+from swagger_server.service.student_service import *
 from swagger_server import util
 
 
-def add_student(body=None):  # noqa: E501
+def add_student(body=None): # noqa: E501
     """Add a new student
-
+    # noqa: E501
     Adds an item to the system # noqa: E501
-
     :param body: Student item to add
     :type body: dict | bytes
-
-    :rtype: str
+    :rtype: float
     """
     if connexion.request.is_json:
-        body = Student.from_dict(connexion.request.get_json())  # noqa: E501
-    return 'do some magic!'
+        body = Student.from_dict(connexion.request.get_json()) # noqa: E501
+        return add(body)
+    return 500, 'error'
+
 
 
 def delete_student(student_id):  # noqa: E501
