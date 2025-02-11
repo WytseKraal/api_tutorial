@@ -33,5 +33,5 @@ class MongoDBStudentHandler(StudentDAO):
         if not record:
             return {"message": "student not found"}, 404
 
-        record["_id"] = str(record["_id"])
-        return record, 200
+        # record["_id"] = str(record["_id"])
+        return {"student_id": student_id, "first_name": record["first_name"], "last_name": record["last_name"], "grade_records": record.get("grade_records", [])}, 200
