@@ -103,9 +103,8 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                format: Student
-                x-content-type: application/json
+                $ref: '#/components/schemas/Student'
+
         "400":
           description: "invalid input, object invalid"
         "409":

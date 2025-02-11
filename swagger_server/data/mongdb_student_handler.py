@@ -23,7 +23,7 @@ class MongoDBStudentHandler(StudentDAO):
         student["student_id"] = student_id  # ensure the student dict now includes the id
         record = self.collection.find_one({"student_id": student_id})
         if record:
-            return {"error": "Student already exists"}, 409
+            return {"error": "student already exists"}, 409
         try:
             self.collection.insert_one(student)
             return {
