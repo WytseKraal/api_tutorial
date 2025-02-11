@@ -5,7 +5,7 @@ from swagger_server.data.student_DAO import StudentDAO
 class MongoDBStudentHandler(StudentDAO):
     def __init__(self, uri=None, db_name="students_db", collection_name="students"):
         if not uri:
-            uri = os.environ.get('MONGO_URI', "mongodb://localhost:2701")
+            uri = os.environ.get('MONGO_URI', "mongodb://localhost:27017")
 
         self.client = MongoClient(uri)
         self.db = self.client[db_name]
