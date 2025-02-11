@@ -1,5 +1,7 @@
 import os
 from pymongo import MongoClient
+import random
+
 from swagger_server.data.student_DAO import StudentDAO
 
 class MongoDBStudentHandler(StudentDAO):
@@ -11,14 +13,19 @@ class MongoDBStudentHandler(StudentDAO):
         self.db = self.client[db_name]
         self.collection = self.db[collection_name]
 
+    def _generate_student_id(self):
+        # A simple example—ideally, use a more robust method
+        return random.randint(1, 1000000)
+
     def add(self, student: dict):
-        student_id = student.get("student_id")
+        # Generate an ID if none is provided:
+        student_id = student.get("student_id") or self._generate_student_id()
+        student["student_id"] = student_id  # ensure the student dict contains the id
         record = self.collection.find_one({"student_id": student_id})
         if record:
             return {"error": "Student already exists"}, 409
         try:
             self.collection.insert_one(student)
-            # Return the student details including student_id:
             return {
                 "student_id": student_id,
                 "first_name": student["first_name"],
