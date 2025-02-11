@@ -16,14 +16,14 @@ def add_student(body=None): # noqa: E501
     """
 
     try:
-        if not connexion.request.is_json():
+        if not connexion.request.is_json:
             return {'error': "Invalid Request"}, 400
 
         body = Student.from_dict(connexion.request.get_json())  # noqa: E501
-        response, status_code = add(body)
+        response, status_code = add(body.to_dict())
         return {"message": response}, status_code
     except Exception as e:
-        return 500, f'error {e}'
+        return {"error": f"error {e}"}, 500
 
 
 
@@ -42,7 +42,7 @@ def delete_student(student_id):  # noqa: E501
         response, status_code = delete(student_id)
         return {"message": response}, status_code
     except Exception as e:
-        return 500, f'error {e}'
+        return {"error": f"error {e}"}, 500
 
 
 def get_student_by_id(student_id):  # noqa: E501
@@ -64,4 +64,4 @@ def get_student_by_id(student_id):  # noqa: E501
 
         return student, 200
     except Exception as e:
-        return 500, f'error {e}'
+        return {"error": f"error {e}"}, 500
