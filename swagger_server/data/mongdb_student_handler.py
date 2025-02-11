@@ -5,7 +5,7 @@ from swagger_server.data.student_DAO import StudentDAO
 class MongoDBStudentHandler(StudentDAO):
     def __init__(self, uri=None, db_name="students_db", collection_name="students"):
         if not uri:
-            uri = os.environ.get('MONGO_URI', "mongodb://localhost:27017")
+            uri = os.environ.get('MONGO_URI', "mongodb://localhost:2701")
 
         self.client = MongoClient(uri)
         self.db = self.client[db_name]
@@ -18,7 +18,7 @@ class MongoDBStudentHandler(StudentDAO):
             return {"error": "Student already exists"}, 409
         try:
             self.collection.insert_one(student)
-            return student, 200
+            return {"message": "Student added"}, 200
         except Exception as e:
             return {"error": str(e)}, 500
 
