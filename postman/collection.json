@@ -21,7 +21,7 @@
 									"tests[\"Response should not be 'do some magic!'\"] = responseBody != \"do some magic!\";",
 									"// pm.globals.set(\"student_id\", responseBody);",
 									"var jsonData = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"student_id\", jsonData);"
+									"postman.setEnvironmentVariable(\"student_id\", jsonData.student_id);"
 								],
 								"type": "text/javascript"
 							}
