@@ -103,8 +103,8 @@ paths:
           content:
             application/json:
               schema:
-                type: string
-                format: uuid
+                type: object
+                format: Student
                 x-content-type: application/json
         "400":
           description: "invalid input, object invalid"
