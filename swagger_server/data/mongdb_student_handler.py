@@ -14,13 +14,13 @@ class MongoDBStudentHandler(StudentDAO):
         self.collection = self.db[collection_name]
 
     def _generate_student_id(self):
-        # A simple example—ideally, use a more robust method
+        # A simple example; in production, use a more robust method.
         return random.randint(1, 1000000)
 
     def add(self, student: dict):
-        # Generate an ID if none is provided:
+        # Generate a student_id if not provided
         student_id = student.get("student_id") or self._generate_student_id()
-        student["student_id"] = student_id  # ensure the student dict contains the id
+        student["student_id"] = student_id  # ensure the student dict now includes the id
         record = self.collection.find_one({"student_id": student_id})
         if record:
             return {"error": "Student already exists"}, 409
