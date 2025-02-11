@@ -11,7 +11,7 @@ class TinyDBStudentHandler(StudentDAO):
         _, status_code = self.get(student_id)
 
         if status_code == 200:
-            return {"error": "student already exists"}, 409
+            return {"message": "student already exists"}, 409
 
         self.table.insert(student)
         return {"message": f"student sucessfully added, with id {student_id}"}, 201
