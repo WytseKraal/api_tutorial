@@ -17,8 +17,9 @@ class MongoDBStudentHandler(StudentDAO):
         if record:
             return {"error": "Student already exists"}, 409
         try:
-            self.collection.insert_one(student)
-            return {"message": "Student added"}, 200
+            res = self.collection.insert_one(student)
+            student["_id"] = str(res.inserted_id)
+            return student, 200
         except Exception as e:
             return {"error": str(e)}, 500
 
