@@ -11,14 +11,20 @@ class MongoDBStudentHandler(StudentDAO):
         self.db = self.client[db_name]
         self.collection = self.db[collection_name]
 
-    def add(self, student:dict):
+    def add(self, student: dict):
         student_id = student.get("student_id")
         record = self.collection.find_one({"student_id": student_id})
         if record:
             return {"error": "Student already exists"}, 409
         try:
             self.collection.insert_one(student)
-            return {"student_id": student_id, "first_name": student["first_name"], "last_name": student["last_name"], "grade_records": student.get("grade_records", [])}, 200
+            # Return the student details including student_id:
+            return {
+                "student_id": student_id,
+                "first_name": student["first_name"],
+                "last_name": student["last_name"],
+                "grade_records": student.get("grade_records", [])
+            }, 200
         except Exception as e:
             return {"error": str(e)}, 500
 
